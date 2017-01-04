@@ -32,3 +32,38 @@ MH1$GROSS.SQUARE.FEET <- as.numeric(MH1$GROSS.SQUARE.FEET)
 MH1$RESIDENTIAL.UNITS <- as.integer(MH1$RESIDENTIAL.UNITS)
 MH1$TOTAL.UNITS <- as.integer(MH1$TOTAL.UNITS)
 ```
+
+Some EDA:
+
+```{r EDA}
+hist(MH1$SALE.PRICE)
+hist(MH1$SALE.PRICE[SALE.PRICE>1])
+hist(MH1$GROSS.SQUARE.FEET[GROSS.SQUARE.FEET < 10])
+```
+
+looks like we have some missing prices and Square feet numbers
+Let's remove the lines with no sales price
+```{r realsales}
+MH.SALE <- MH1[MH1$SALE.PRICE>1,]
+hist(MH.SALE$SALE.PRICE)
+plot(MH.SALE$GROSS.SQUARE.FEET,MH.SALE$SALE.PRICE)
+plot(log(MH.SALE$GROSS.SQUARE.FEET),log(MH.SALE$SALE.PRICE))
+```
+
+```{r check}
+summary(MH.SALE$GROSS.SQUARE.FEET)
+summary(MH.SALE$SALE.PRICE)
+summary(MH.SALE$BUILDING.CLASS.CATEGORY)
+```
+
+I checked Elevator appartments first but these seem to have the most missing square feet records, so I switched to family homes:
+
+```{r family}
+library(plyr)
+MH.FAM <- MH.SALE[which(grepl("FAMILY", MH.SALE$BUILDING.CLASS.CATEGORY)),]
+
+summary(MH.FAM)
+hist(log(MH.FAM$SALE.PRICE))
+plot(MH.FAM$GROSS.SQUARE.FEET, MH.FAM$SALE.PRICE)
+plot(log(MH.FAM$GROSS.SQUARE.FEET),log(MH.FAM$SALE.PRICE))
+```
