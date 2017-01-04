@@ -1,0 +1,18 @@
+---
+title: "RealDirect Data Strategy"
+author: "Thijs Leufkens"
+date: "4-1-2017"
+output: html_document
+---
+
+ document. You can embed an R code chunk like this:
+
+```{r loadmanhattanfile echo=TRUE}
+MH1 <- read.xls("rollingsales_manhattan.xls")
+```
+
+
+```{r head}
+head(MH)
+summary(MH)
+```
