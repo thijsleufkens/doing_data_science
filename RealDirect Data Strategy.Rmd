@@ -75,3 +75,16 @@ MH.FAM$outliers <- (log(MH.FAM$SALE.PRICE) <= 5) + 0
 MH.FAM <- MH.FAM[which(MH.FAM$outliers==0),]
 plot(log(MH.FAM$GROSS.SQUARE.FEET),log(MH.FAM$SALE.PRICE))
 ```
+
+Linear Regression
+
+```{r linearfamily}
+MH.FAM <- MH.FAM[which(MH.FAM$GROSS.SQUARE.FEET>0 & MH.FAM$LAND.SQUARE.FEET>0),]
+
+linfam1 <- lm(log(MH.FAM$SALE.PRICE) ~ log(MH.FAM$GROSS.SQUARE.FEET))
+summary(linfam1)
+
+plot(log(MH.FAM$GROSS.SQUARE.FEET),log(MH.FAM$SALE.PRICE))
+abline(linfam1,col="red",lwd=2)
+plot(resid(linfam1))
+```
