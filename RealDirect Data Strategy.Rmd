@@ -67,3 +67,11 @@ hist(log(MH.FAM$SALE.PRICE))
 plot(MH.FAM$GROSS.SQUARE.FEET, MH.FAM$SALE.PRICE)
 plot(log(MH.FAM$GROSS.SQUARE.FEET),log(MH.FAM$SALE.PRICE))
 ```
+
+remove values that are outliers according to the book:
+
+```{r outliers}
+MH.FAM$outliers <- (log(MH.FAM$SALE.PRICE) <= 5) + 0
+MH.FAM <- MH.FAM[which(MH.FAM$outliers==0),]
+plot(log(MH.FAM$GROSS.SQUARE.FEET),log(MH.FAM$SALE.PRICE))
+```
