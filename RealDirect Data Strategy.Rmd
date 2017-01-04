@@ -5,14 +5,30 @@ date: "4-1-2017"
 output: html_document
 ---
 
- document. You can embed an R code chunk like this:
+First we load the .xls file.
+the gdata package is required for this.
+Our Excel has some header text on the top, so we add pattern = "BOROUGH" to start at the first relevant row.
 
-```{r loadmanhattanfile echo=TRUE}
-MH1 <- read.xls("rollingsales_manhattan.xls")
+```{r loadmanhattanfile, echo=TRUE}
+require(gdata)
+MH1 <- read.xls("rollingsales_manhattan.xls", pattern = "BOROUGH")
 ```
 
+a Quick summary of the data:
 
 ```{r head}
-head(MH)
-summary(MH)
+head(MH1)
+summary(MH1)
+str(MH1)
+```
+
+Most data is stored in factors, let's convert these in more meaningfull types:
+
+```{r cleaning}
+MH1$SALE.PRICE <- as.numeric(MH1$SALE.PRICE)
+MH1$SALE.DATE <- as.Date(MH1$SALE.DATE)
+MH1$LAND.SQUARE.FEET <- as.numeric(MH1$LAND.SQUARE.FEET)
+MH1$GROSS.SQUARE.FEET <- as.numeric(MH1$GROSS.SQUARE.FEET)
+MH1$RESIDENTIAL.UNITS <- as.integer(MH1$RESIDENTIAL.UNITS)
+MH1$TOTAL.UNITS <- as.integer(MH1$TOTAL.UNITS)
 ```
