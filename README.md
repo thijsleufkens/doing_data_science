@@ -1,4 +1,4 @@
-Doing Data Science
+Doing Data Science - RealDirect Data Strategy
 ==================
 
 This is the sample dataset that accompanies Doing Data Science by Cathy O'Neil and Rachel Schutt (9781449358655). 
