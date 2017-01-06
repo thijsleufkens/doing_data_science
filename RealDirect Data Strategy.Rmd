@@ -22,6 +22,39 @@ summary(MH1)
 str(MH1)
 ```
 
+test
+```{r test}
+#df.list <- ('a')
+#final.df <- ('b')
+str(df.list)
+str(final.df)
+head(final.df)
+```
+
+Load multiple files:
+```{r multiplefiles}
+library(plyr)
+library(dplyr)
+filenames <- list.files(pattern = ".xls")
+df.list <- lapply(filenames, function(x) 
+  {
+    tmp       <- read.xls(x, pattern = "BOROUGH")
+    tmp$AREA  <- x
+    tmp
+  }
+  )
+final.df <- do.call(rbind, df.list)
+
+```
+
+a Quick summary of the data:
+
+```{r headall}
+head(final.df)
+summary(final.df)
+str(final.df)
+```
+
 Most data is stored in factors, let's convert these in more meaningfull types:
 
 ```{r cleaning}
@@ -87,4 +120,10 @@ summary(linfam1)
 plot(log(MH.FAM$GROSS.SQUARE.FEET),log(MH.FAM$SALE.PRICE))
 abline(linfam1,col="red",lwd=2)
 plot(resid(linfam1))
+```
+
+```{r model2}
+model2 <- lm(log(MH.FAM$SALE.PRICE) ~ log(MH.FAM$GROSS.SQUARE.FEET) + log(MH.FAM$LAND.SQUARE.FEET) + factor(MH.FAM$NEIGHBORHOOD),data=MH.FAM)
+summary(model2)
+plot(resid(model2))
 ```
