@@ -26,12 +26,17 @@ test
 ```{r test}
 #df.list <- ('a')
 #final.df <- ('b')
-str(df.list)
-str(final.df)
-head(final.df)
+#str(df.list)
+#str(final.df)
+#head(final.df)
+
+#substr(final.df$AREA,14, ".xls")
+
+final.df$AREA <- substr(final.df$AREA, 14, (nchar(final.df$AREA)-4))
+
 ```
 
-Load multiple files:
+Load multiple files and add filename as area (to be cleaned later):
 ```{r multiplefiles}
 library(plyr)
 library(dplyr)
@@ -58,12 +63,13 @@ str(final.df)
 Most data is stored in factors, let's convert these in more meaningfull types:
 
 ```{r cleaning}
-MH1$SALE.PRICE <- as.numeric(MH1$SALE.PRICE)
-MH1$SALE.DATE <- as.Date(MH1$SALE.DATE)
-MH1$LAND.SQUARE.FEET <- as.numeric(MH1$LAND.SQUARE.FEET)
-MH1$GROSS.SQUARE.FEET <- as.numeric(MH1$GROSS.SQUARE.FEET)
-MH1$RESIDENTIAL.UNITS <- as.integer(MH1$RESIDENTIAL.UNITS)
-MH1$TOTAL.UNITS <- as.integer(MH1$TOTAL.UNITS)
+final.df$SALE.PRICE <- as.numeric(final.df$SALE.PRICE)
+final.df$SALE.DATE <- as.Date(final.df$SALE.DATE)
+final.df$LAND.SQUARE.FEET <- as.numeric(final.df$LAND.SQUARE.FEET)
+final.df$GROSS.SQUARE.FEET <- as.numeric(final.df$GROSS.SQUARE.FEET)
+final.df$RESIDENTIAL.UNITS <- as.integer(final.df$RESIDENTIAL.UNITS)
+final.df$TOTAL.UNITS <- as.integer(final.df$TOTAL.UNITS)
+final.df$AREA <- substr(final.df$AREA, 14, (nchar(final.df$AREA)-4)) # Remove the first 13 characters and the last 4
 ```
 
 Some EDA:
